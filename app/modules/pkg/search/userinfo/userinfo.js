@@ -1,15 +1,12 @@
 
-
 import _ from 'lodash';
 import logger from 'modules/pkg/logger';
-// import * as Redis from 'modules/redis';
+// import * as Redis from 'modules/pkg/redis';
 import * as Utils from 'modules/utils';
-import * as esClient from '../elastic';
+import * as esClient from 'modules/pkg/elastic';
+import { IndexName, IndexTypeCases } from 'modules/pkg/const';
 import settings from './settings';
 import mapping from './mapping';
-
-const indexName = 'node_server_userinfo';
-const indexTypeCases = 'node_server_userinfo';
 
 function buildUserNameQuery(search) {
   const queries = [
@@ -96,11 +93,11 @@ function buildIdCardQuery(search) {
 export const initServerData = async () => {
   try {
     await esClient.pingEs();
-    await esClient.indicesDelete(indexName);
-    await esClient.indicesCreate(indexName, settings);
+    await esClient.indicesDelete(IndexName);
+    await esClient.indicesCreate(IndexName, settings);
     // console.log(JSON.stringify(settings));
     // console.log(JSON.stringify(mapping));
-    await esClient.indicesPutMapping(indexName, indexTypeCases, mapping);
+    await esClient.indicesPutMapping(IndexName, IndexTypeCases, mapping);
   } catch (err) {
     throw new Error(err);
   }
@@ -172,8 +169,8 @@ export const searchSuggestion = async (options) => {
   });
 
   const result = await esClient.msearch({
-    index: indexName,
-    type: indexTypeCases,
+    index: IndexName,
+    type: IndexTypeCases,
     body: msearchBody,
   });
   logger.debug(`hits result === ${JSON.stringify(result)}`);
@@ -283,14 +280,14 @@ function buildQuery(search) {
 }
 
 export const explainSearchResult = async (search, tokenizer, filter) => {
-  const analyze = await esClient.indicesAnalyze(indexName, { tokenizer, filter }, search);
+  const analyze = await esClient.indicesAnalyze(IndexName, { tokenizer, filter }, search);
   logger.debug(analyze);
 };
 
 const countSearchResult = async (search) => {
   const result = await esClient.count({
-    index: indexName,
-    type: indexTypeCases,
+    index: IndexName,
+    type: IndexTypeCases,
     body: {
       query: buildQuery(search),
     },
@@ -337,8 +334,8 @@ const searches = async (oldsearch, options) => {
   const createdAt = null;
   // console.log(JSON.stringify(buildQuery(search, createdAt)));
   const result = await esClient.search({
-    index: indexName,
-    type: indexTypeCases,
+    index: IndexName,
+    type: IndexTypeCases,
     body: {
       query: buildQuery(search, createdAt),
       stored_fields: [],
@@ -371,8 +368,8 @@ const searches = async (oldsearch, options) => {
   let explain = {}; // eslint-disable-line
   for(let hit of result.hits.hits) { // eslint-disable-line
     const exp = await esClient.explain({
-      index: indexName,
-      type: indexTypeCases,
+      index: IndexName,
+      type: IndexTypeCases,
       id: hit._id, // eslint-disable-line
       body: {
         query: buildQuery(search),
