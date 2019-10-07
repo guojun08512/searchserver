@@ -1,7 +1,7 @@
 
 
 import _ from 'lodash';
-import logger from 'modules/logger';
+import logger from 'modules/pkg/logger';
 // import * as Redis from 'modules/redis';
 import * as Utils from 'modules/utils';
 import * as esClient from '../elastic';

@@ -1,6 +1,6 @@
 
 import Router from 'koa-router';
-import * as Search from 'modules/search';
+import * as Search from 'modules/pkg/search';
 
 async function getSearchSuggestion(ctx) {
   const data = ctx.request.body;
@@ -24,8 +24,8 @@ async function getExplainSearchResult(ctx) {
 
 const router = Router();
 const routers = router
-  .post('/searchsuggestion', getSearchSuggestion)
-  .post('/searchall', getSearchAll)
-  .post('/searchexplain/:id', getExplainSearchResult);
+  .post('/suggestion', getSearchSuggestion)
+  .post('/all', getSearchAll)
+  .post('/explain/:id', getExplainSearchResult);
 
 module.exports = routers;

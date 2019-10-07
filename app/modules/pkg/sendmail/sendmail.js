@@ -1,8 +1,8 @@
 
 import nodemailer from 'nodemailer';
 
-import logger from 'modules/logger';
-import { mail as MailConfig } from 'modules/config';
+import logger from 'modules/pkg/logger';
+import { mail as MailConfig } from 'modules/pkg/config';
 
 export default class SendMails {
   constructor(content, subject) {

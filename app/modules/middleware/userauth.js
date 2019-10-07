@@ -1,7 +1,7 @@
 
-import logger from 'modules/logger';
+import logger from 'modules/pkg/logger';
 import jwt from 'jsonwebtoken';
-import config from 'modules/config';
+import config from 'modules/pkg/config';
 
 const getClientIp = req => (req.headers['x-forwarded-for'] ||
   req.connection.remoteAddress ||

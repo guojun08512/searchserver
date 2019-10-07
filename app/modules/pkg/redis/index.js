@@ -1,7 +1,7 @@
 
-import config from 'modules/config';
+import config from 'modules/pkg/config';
 import redis from 'redis';
-import logger from 'modules/logger';
+import logger from 'modules/pkg/logger';
 
 const client = redis.createClient(config.get('REDIS_DB_URL'));
 

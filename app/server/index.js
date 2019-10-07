@@ -7,13 +7,13 @@ import onerror from 'koa-onerror';
 import bodyparser from 'koa-bodyparser';
 import cors from 'koa2-cors';
 import indexRoute from 'modules/routes';
-import { koaLogger } from 'modules/logger';
-import config from 'modules/config';
+import { koaLogger } from 'modules/pkg/logger';
+import config from 'modules/pkg/config';
 import responseData from 'modules/middleware/responsedata';
 import errorRouteCatch from 'modules/middleware/errorroutescatch';
 import userAuth from 'modules/middleware/userauth';
 
-const logger = require('modules/logger').default;
+const logger = require('modules/pkg/logger').default;
 const koaStatic = require('koa-static')(`${__dirname}/../../public`);
 
 const app = new Koa();

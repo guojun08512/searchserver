@@ -7,7 +7,7 @@ const router = Router();
 router.use('/v1', apiV1.routes(), apiV1.allowedMethods());
 
 router.get('/version', async (ctx) => {
-  ctx.success({}, 'dataCenter server version');
+  ctx.success({}, 'search server version');
 });
 
 module.exports = router;

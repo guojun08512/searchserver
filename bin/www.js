@@ -1,9 +1,9 @@
 
-import config from 'modules/config';
+import config from 'modules/pkg/config';
 import app from 'server';
 import cluster from 'cluster';
-import logger from 'modules/logger';
-import { initServerData } from 'modules/search';
+import logger from 'modules/pkg/logger';
+import { initServerData } from 'modules/pkg/search';
 
 async function initMater() {
   await initServerData();

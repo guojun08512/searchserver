@@ -4,7 +4,7 @@ import { logger as koalogger } from 'koa2-winston';
 import path from 'path';
 import fs from 'fs';
 
-import config from 'modules/config';
+import config from '../config';
 import eventType from './logevent';
 
 const timestamp = () => new Date().toISOString();

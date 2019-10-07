@@ -1,5 +1,5 @@
 
-import config from 'modules/config';
+import config from 'modules/pkg/config';
 
 export default async (ctx, next) => {
   const version = config.get('VERSION');

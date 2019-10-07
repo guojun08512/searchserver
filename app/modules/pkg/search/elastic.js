@@ -1,7 +1,7 @@
 
 import Elasticsearch from 'elasticsearch';
-import config from 'modules/config';
-import logger from 'modules/logger';
+import config from 'modules/pkg/config';
+import logger from 'modules/pkg/logger';
 
 const client = new Elasticsearch.Client({
   host: config.get('ES_HOST'),

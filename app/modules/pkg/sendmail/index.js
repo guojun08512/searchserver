@@ -1,5 +1,5 @@
 
-import logger from 'modules/logger';
+import logger from 'modules/pkg/logger';
 import SendMails from './sendmail';
 
 export async function reSendMail(mail) {

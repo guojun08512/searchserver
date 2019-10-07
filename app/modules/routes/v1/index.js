@@ -1,7 +1,9 @@
 
 import Router from 'koa-router';
-import searchApi from './search';
+import SearchApi from './search';
+import DataApi from './data';
 
 const router = Router();
-router.use('/searchs', searchApi.routes(), searchApi.allowedMethods());
+router.use('/search', SearchApi.routes(), SearchApi.allowedMethods());
+router.use('/data', DataApi.routes(), DataApi.allowedMethods());
 export default router;

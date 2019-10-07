@@ -1,6 +1,6 @@
 
-import config from 'modules/config';
-import logger from 'modules/logger';
+import config from 'modules/pkg/config';
+import logger from 'modules/pkg/logger';
 import ERROR from 'modules/utils';
 
 export default () => (ctx, next) => next().catch((err) => {
