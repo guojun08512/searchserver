@@ -1,0 +1,26 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "env": {
+    "mocha": true,
+    "node": true
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-module": {}
+    }
+  },
+  "plugins": [
+  ],
+  "rules": {
+    "max-len": [2, 260, 80, { "ignoreStrings": true }],
+    "import/prefer-default-export": 0,
+    "prefer-destructuring": 0,
+    "no-unused-vars": [2, { "argsIgnorePattern": "^_" }],
+    "react/require-extension": 0,
+    "no-await-in-loop": 0
+  }
+}
