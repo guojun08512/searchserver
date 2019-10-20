@@ -146,15 +146,9 @@ export function bulk(indexName, indexType, obj) {
   });
 }
 
-export function update(indexName, indexType, id, obj) {
+export function updateByQuery(obj) {
   return new Promise((resolve, reject) => {
-    client.update({
-      id,
-      index: indexName,
-      type: indexType,
-      refresh: true,
-      body: obj,
-    }).then((info) => {
+    client.updateByQuery(obj).then((info) => {
       resolve(info);
     }).catch((err) => {
       reject(err);

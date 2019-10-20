@@ -4,7 +4,7 @@ import logger from 'modules/pkg/logger';
 // import * as Redis from 'modules/pkg/redis';
 import * as Utils from 'modules/utils';
 import * as esClient from 'modules/pkg/elastic';
-import { IndexName, IndexTypeCases } from 'modules/pkg/const';
+import { IndexName, IndexTypeUserInfo } from 'modules/pkg/const';
 import settings from './settings';
 import mapping from './mapping';
 
@@ -97,7 +97,7 @@ export const initServerData = async () => {
     await esClient.indicesCreate(IndexName, settings);
     // console.log(JSON.stringify(settings));
     // console.log(JSON.stringify(mapping));
-    await esClient.indicesPutMapping(IndexName, IndexTypeCases, mapping);
+    await esClient.indicesPutMapping(IndexName, IndexTypeUserInfo, mapping);
   } catch (err) {
     throw new Error(err);
   }
@@ -170,7 +170,7 @@ export const searchSuggestion = async (options) => {
 
   const result = await esClient.msearch({
     index: IndexName,
-    type: IndexTypeCases,
+    type: IndexTypeUserInfo,
     body: msearchBody,
   });
   logger.debug(`hits result === ${JSON.stringify(result)}`);
@@ -287,7 +287,7 @@ export const explainSearchResult = async (search, tokenizer, filter) => {
 const countSearchResult = async (search) => {
   const result = await esClient.count({
     index: IndexName,
-    type: IndexTypeCases,
+    type: IndexTypeUserInfo,
     body: {
       query: buildQuery(search),
     },
@@ -335,25 +335,25 @@ const searches = async (oldsearch, options) => {
   // console.log(JSON.stringify(buildQuery(search, createdAt)));
   const result = await esClient.search({
     index: IndexName,
-    type: IndexTypeCases,
+    type: IndexTypeUserInfo,
     body: {
       query: buildQuery(search, createdAt),
       stored_fields: [],
-      highlight: {
-        pre_tags: ['<mark>'],
-        post_tags: ['</mark>'],
-        fields: {
-          'casename.keyword_ik': {
-            matched_fields: ['casename.keyword', 'casename.keyword_map'],
-            type: 'fvh',
-          },
-          'hospital.name.keyword': {
-            matched_fields: ['hospital.name.keyword', 'hospital.name.keyword_map', 'hospital.name.keyword_ik', 'hospital.name.keyword_ik_pinyin', 'hospital.name.keyword_ik_pinyin_first_letter'],
-            type: 'fvh',
-          },
-          // 'patientid.*': {},
-        },
-      },
+      // highlight: {
+      //   pre_tags: ['<mark>'],
+      //   post_tags: ['</mark>'],
+      //   fields: {
+      //     'casename.keyword_ik': {
+      //       matched_fields: ['casename.keyword', 'casename.keyword_map'],
+      //       type: 'fvh',
+      //     },
+      //     'hospital.name.keyword': {
+      //       matched_fields: ['hospital.name.keyword', 'hospital.name.keyword_map', 'hospital.name.keyword_ik', 'hospital.name.keyword_ik_pinyin', 'hospital.name.keyword_ik_pinyin_first_letter'],
+      //       type: 'fvh',
+      //     },
+      //     'patientid.*': {},
+      //   },
+      // },
       from: options.offset,
       size: options.limit,
       sort: [{
@@ -369,7 +369,7 @@ const searches = async (oldsearch, options) => {
   for(let hit of result.hits.hits) { // eslint-disable-line
     const exp = await esClient.explain({
       index: IndexName,
-      type: IndexTypeCases,
+      type: IndexTypeUserInfo,
       id: hit._id, // eslint-disable-line
       body: {
         query: buildQuery(search),

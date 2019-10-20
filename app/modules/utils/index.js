@@ -6,6 +6,12 @@ export const $required = (key, value) => {
   }
 };
 
+export const $checkArray = (val) => {
+  if (typeof val !== 'object' && val.length !== 'undefined') {
+    throw new Error('check your data, need array!!');
+  }
+};
+
 export const $checkResponse = (response) => {
   if (response.code !== 200) {
     throw new Error(`${response.message}(${response.errMsg})`);

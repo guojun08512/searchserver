@@ -69,10 +69,10 @@ export default {
         },
       },
     },
-    // createdat:
-    // {
-    //   type: 'date',
-    //   format: 'date_time',
-    // },
+    createdat:
+    {
+      type: 'date',
+      format: 'date_time',
+    },
   },
 };
